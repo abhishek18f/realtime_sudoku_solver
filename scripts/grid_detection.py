@@ -1,11 +1,13 @@
+# from scripts.backtracking import sudoku_solver
 import cv2
 import numpy as np
+import math
 import sys
 
 from numpy.core.numeric import Inf
 
 #read image in grayscale
-img = cv2.imread('sudoku.jpeg' )
+img = cv2.imread('clean_sudoku.jpg')
 if img is None:
     sys.exit("Could not read the image.")
 
@@ -147,11 +149,6 @@ dst = np.array(
     )
 
 
-# print(corner_pos)
-
-ii = np.reshape(corner_pos , (4 , 1 , 2))
-# print(ii)
-print(ii.shape)
 mask = np.zeros(gray_img.shape , np.uint8)                  #create a mask for the sudoku contour
 cv2.drawContours(mask , [bestContour], 0, 255, -1)
 cv2.drawContours(mask , [bestContour], 0, 0 , 2) 
@@ -160,10 +157,40 @@ sudoku_cropped = np.zeros(gray_img.shape)
 sudoku_cropped[mask == 255] = dialated_img[mask == 255]
 
 matrix = cv2.getPerspectiveTransform(corner_pos, dst)
-sudoku_img = cv2.warpPerspective(sudoku_cropped, matrix, ((int)(length) +1 ,  (int)(width) + 1))
+sudoku_img = cv2.warpPerspective(sudoku_cropped, matrix, ((int)(length) ,  (int)(width)))
 sudoku_img = cv2.erode(sudoku_img , (3,3) , iterations=2)
-# print(bestContour.shape)
 
-cv2.imshow('img' , sudoku_cropped)
-cv2.imshow('img_blur' , sudoku_img)
-cv2.waitKey(0)
+#make a sudoku list
+SIZE = 9
+sudoku = []
+for i in range(SIZE):
+    row = []
+    for j in range(SIZE):
+        row.append(0)
+    sudoku.append(row)
+
+
+box_width = (int)(width//SIZE)
+box_length = (int)(length//SIZE)
+
+border_width = math.floor(box_width/10)
+border_length = math.floor(box_length/10)
+
+print(type(box_width))
+
+for i in range(1):
+    for j in range(1,2):
+        crop_box = sudoku_img[box_length*i + border_length : box_length*(i+1) - border_length , 
+                            box_width*j + border_width : box_width*(j+1) - border_width]
+
+        #remove borders(if any)
+        
+
+        # crop_box = cv2.bitwise_not(crop_box)
+        cv2.imshow('img' , sudoku_img)
+        cv2.imshow("cropped" , crop_box)
+        cv2.waitKey(0)
+
+
+# cv2.imshow('img' , sudoku_cropped)
+# cv2.imshow('img_blur' , sudoku_img)
