@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./flask_api"
+    ],
+    "python.pythonPath": "/home/abhishek/anaconda3/bin/python"
+}
