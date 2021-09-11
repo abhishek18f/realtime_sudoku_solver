@@ -178,8 +178,8 @@ border_length = math.floor(box_length/10)
 
 print(type(box_width))
 
-for i in range(1):
-    for j in range(1,2):
+for i in range(10):
+    for j in range(10):
         crop_box = sudoku_img[box_length*i + border_length : box_length*(i+1) - border_length , 
                             box_width*j + border_width : box_width*(j+1) - border_width]
 
@@ -189,6 +189,7 @@ for i in range(1):
         # crop_box = cv2.bitwise_not(crop_box)
         cv2.imshow('img' , sudoku_img)
         cv2.imshow("cropped" , crop_box)
+        cv2.imwrite('seven.jpg' , crop_box)
         cv2.waitKey(0)
 
 
