@@ -30,7 +30,7 @@ def sudoku_solver(sudoku , num_of_rows = 9):
         row = idx//num_of_rows
         col = idx%num_of_rows
 
-        if sudoku[row][col] != -1:
+        if sudoku[row][col] != 0:
             return solve_sudoku(sudoku , num_of_rows, idx + 1)
 
         for num in range(1 , num_of_rows + 1):
@@ -39,10 +39,10 @@ def sudoku_solver(sudoku , num_of_rows = 9):
                 if(solve_sudoku(sudoku , num_of_rows , idx + 1)):
                     return True
         
-        sudoku[row][col] = -1
+        sudoku[row][col] = 0
         return False
 
-    solve_sudoku(sudoku , num_of_rows , 0):
+    solve_sudoku(sudoku , num_of_rows , 0)
     return sudoku
 
    
