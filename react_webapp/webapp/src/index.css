@@ -66,3 +66,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+table.sudoku {
+  border: 3px solid #008a73;
+  border-collapse: collapse;
+  margin: 20px auto;
+}
